@@ -1,13 +1,26 @@
 ## Tools
 
+* [Protomaps Docs](https://docs.protomaps.com)
 * [MapLibre GL JS](https://github.com/maplibre/maplibre-gl-js)
 * [tippecanoe](https://github.com/felt/tippecanoe)
-* [pmtiles](https://github.com/protomaps/go-pmtiles) command line tool
+* [pmtiles command line tool](https://github.com/protomaps/go-pmtiles)
+
+* python3
+
+* [PMTiles viewer (pmtiles.io)](https://pmtiles.io)
+* [Placemark](https://play.placemark.io)
+
+## Datasets
+
+* [Open Data Minneapolis](https://opendata.minneapolismn.gov)
+* [TheUpshot/presidential-precinct-map-2020](https://github.com/TheUpshot/presidential-precinct-map-2020)
+* [Protomaps Basemaps](https://docs.protomaps.com/basemaps/downloads)
+
 
 ## Starting a static file server
 
 ```sh
-python3 -m http.server
+python3 -m RangeHTTPServer
 ```
 
 ## More Info
