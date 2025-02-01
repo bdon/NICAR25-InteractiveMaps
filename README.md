@@ -29,3 +29,8 @@ python3 -m RangeHTTPServer
 * [Daniel Wood - Cheap and Pricey: NPR Leveraged Free Tools To Build and Host Our Own Slippy Maps](https://www.youtube.com/watch?v=Abbto_9nNtc)
 * [Chris Amico - How to make self-hosted maps that work everywhere and cost next to nothing](https://www.muckrock.com/news/archives/2024/feb/13/release-notes-how-to-make-self-hosted-maps-that-work-everywhere-cost-next-to-nothing-and-might-even-work-in-airplane-mode/)
 * [Kevin Schaul - How The Post is replacing Mapbox with open source solutions](https://kschaul.com/post/2023/02/16/how-the-post-is-replacing-mapbox-with-open-source-solutions/)
+
+
+## License
+
+Workshop materials: [Creative Commons CC-BY](https://creativecommons.org/licenses/by/4.0/deed.en)
