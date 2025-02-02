@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <title>NICAR interactive mapping</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" crossorigin="anonymous">
+        <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/pmtiles@4.2.1/dist/pmtiles.js"></script>
+        <script src="https://unpkg.com/protomaps-themes-base@4.4.0/dist/protomaps-themes-base.js"></script>
+        <style>
+            body {
+                margin: 0;
+            }
+            #map {
+                height:calc(100dvh - 100px); width:100%;
+            }
+            #toolbar {
+                height: 100px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="toolbar">
+            <div style="padding:12px">
+                Trips are anonymized to the street level, 
+                trip filter
+                <select id="type" onChange="changeType()">
+                    <option value="all">all</option>
+                    <option value="start">start points</option>
+                    <option value="end">end points</option>
+                </select>
+                <select id="day" onChange="changeDay()">
+                    <option value="all">all days</option>
+                    <option value="weekday">trip start weekday</option>
+                    <option value="weekend">trip start weekend</option>
+                </select>
+                <select id="time" onChange="changeTime()">
+                    <option value="all">all times</option>
+                    <option value="morning">trip start morning 6AM-12PM</option>
+                    <option value="afternoon">trip start afternoon 12PM-6PM</option>
+                    <option value="evening">trip start evening 6PM-12AM</option>
+                    <option value="other">trip start 12AM-6AM</option>
+                </select>
+            </div>
+        </div>
+        <div id="map"></div>
+        </div>
+        <script type="text/javascript">
+            let protocol = new pmtiles.Protocol();
+            maplibregl.addProtocol("pmtiles", protocol.tile);
+
+            const map = new maplibregl.Map({
+              container: "map",
+              zoom: 13,
+              center: [-93.262984,44.977863],
+              style: {
+                version: 8,
+                glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+                sprite: `https://protomaps.github.io/basemaps-assets/sprites/v4/light`,
+                sources: {
+                  basemap: {
+                    type: "vector",
+                    url: "pmtiles://../basemap_minneapolis.pmtiles",
+                    attribution: "<a href='https://openstreetmap.org/copyright'>© OpenStreetMap Contributors</a>"
+                  },
+                  lines: {
+                    type: "vector",
+                    url: "pmtiles://../lines.pmtiles"
+                  },
+                  points: {
+                    type: "vector",
+                    url: "pmtiles://../points.pmtiles"
+                  },
+                },
+                layers: [
+                    ...protomaps_themes_base.noLabels("basemap", "white"),
+                    // {
+                    //     id: "line",
+                    //     type: "line",
+                    //     source: "lines",
+                    //     "source-layer": "lines",
+                    //     paint: {
+                    //         "line-color": "steelblue",
+                    //         "line-opacity": 0.1
+                    //     }
+                    // },
+                    {
+                        id: "points",
+                        type: "circle",
+                        source: "points",
+                        "source-layer": "points",
+                        paint: {
+                            "circle-color": ["case",["==",["get","point"],"start"],"cyan","magenta"],
+                            "circle-opacity": 0.1,
+                            "circle-radius": ["step",["zoom"],2,16,10]
+                        }
+                    },
+                    ...protomaps_themes_base.labels("basemap", "white", "en"),
+                ]
+              },
+            });
+
+            map.on('mouseenter', 'points', () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            map.on('mouseleave', 'points', () => {
+                map.getCanvas().style.cursor = '';
+            });
+
+            map.on('click', 'points', (e) => {
+                const coordinates = e.features[0].geometry.coordinates.slice();
+                const properties = e.features[0].properties;
+
+                // Ensure that if the map is zoomed out such that multiple
+                // copies of the feature are visible, the popup appears
+                // over the copy being pointed to.
+                while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+                    coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+                }
+
+                new maplibregl.Popup()
+                    .setLngLat(coordinates)
+                    .setHTML(JSON.stringify(properties))
+                    .addTo(map);
+            });
+
+            var type = "all";
+            var day = "all";
+            var time = "all";
+
+            const changeType = (e) => {
+                var e = document.getElementById("type");
+                type = e.options[e.selectedIndex].value;
+                setFilter();
+            }
+
+            const changeDay = (e) => {
+                var e = document.getElementById("day");
+                day = e.options[e.selectedIndex].value;
+                setFilter();
+            }
+
+            const changeTime = () => {
+                var e = document.getElementById("time");
+                time = e.options[e.selectedIndex].value;
+                setFilter();
+            }
+
+            const setFilter = () => {
+                var typeFilter = true;
+                var dayFilter = true;
+                var timeFilter = true;
+                if (type !== "all") {
+                    typeFilter = ["==",["get","point"], type];
+                }
+                if (day !== "all") {
+                    dayFilter = ["==",["get","day_category"], day];
+                }
+                if (time !== "all") {
+                    timeFilter = ["==",["get","time_category"], time];
+                }
+                console.log(typeFilter, dayFilter, timeFilter);
+                map.setFilter("points",["all", typeFilter, dayFilter, timeFilter])
+            }
+        </script>
+    </body>
+</html>
