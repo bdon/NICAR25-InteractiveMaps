@@ -13,9 +13,10 @@
 ## Datasets
 
 * [Open Data Minneapolis](https://opendata.minneapolismn.gov)
+  * [Motorized Foot Scooter and eBike Trips 2023](https://opendata.minneapolismn.gov/datasets/cityoflakes::motorized-foot-scooter-and-ebike-trips-2023/about)
+  * ["The Hennepin GIS Open Data site offers GIS data to the public free of charge and without need for a license. This site provides the ability to explore, view, share, consume, or download data."](https://gis-hennepin.hub.arcgis.com/pages/about-hennepin-gis)
 * [TheUpshot/presidential-precinct-map-2020](https://github.com/TheUpshot/presidential-precinct-map-2020)
 * [Protomaps Basemaps](https://docs.protomaps.com/basemaps/downloads)
-
 
 ## Starting a static file server
 

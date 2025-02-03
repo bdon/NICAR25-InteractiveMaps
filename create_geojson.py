@@ -6,10 +6,11 @@ from datetime import datetime
 
 random.seed(42)
 
-# load the GeoJSON into memory, calculating midpoints
+centerlines_by_id = {}
 
-objectids = {}
-
+# load the street centerline GeoJSON.
+# populate centerlines_by_id with the GBSID
+# and the coordinates of the start and end point
 with open('data/MPLS_Centerline.geojson') as g:
   j = json.loads(g.read())
   for centerline in j['features']:
@@ -30,18 +31,26 @@ found = 0
 point_features = []
 line_features = []
 
+# load the trips CSV
 with open('data/Motorized_Foot_Scooter_and_eBike_Trips_2023_-2732496373249609372.csv') as m:
   reader = csv.DictReader(m)
   for row in reader:
     rows = rows + 1
     start = row['StartCenterlineID']
     end = row['EndCenterlineID']
+
+    # filter to only those that have start and end IDs that conform to GBSID
     if len(start) == 8 and len(end) == 8:
+      found = found + 1
+
       startID = int(float(start))
       endID = int(float(end))
 
-
+      # if both exist in the previous dataset...
       if startID in objectids and endID in objectids:
+
+        # since we only have the street, place the point
+        # at a random location along the street
         start = objectids[startID]['coordinates']
         t = random.random()
         startPoint = [start[0][0] + t * (start[1][0] - start[0][0]), start[0][1] + t * (start[1][1] - start[0][1])]
@@ -50,12 +59,14 @@ with open('data/Motorized_Foot_Scooter_and_eBike_Trips_2023_-2732496373249609372
         t = random.random()
         endPoint = [end[0][0] + t * (end[1][0] - end[0][0]), end[0][1] + t * (end[1][1] - end[0][1])]
 
+        # determine the day of week
         split = row['StartTime'].split(' ')
         date_obj = datetime.strptime(split[0], "%m/%d/%Y")
         day_category = "weekday"
         if date_obj.weekday() >= 5:
           day_category = "weekend" 
 
+        # determine the time of day
         time_category = "other"
         hour = int(split[1].split(':')[0])
         if split[2] == "PM":
@@ -67,7 +78,6 @@ with open('data/Motorized_Foot_Scooter_and_eBike_Trips_2023_-2732496373249609372
           if hour >= 6 and hour < 12:
             time_category = "morning"
 
-        found = found + 1
         point_features.append({
           'type':'Feature',
           'properties':{

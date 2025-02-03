@@ -62,27 +62,14 @@
                     url: "pmtiles://../basemap_minneapolis.pmtiles",
                     attribution: "<a href='https://openstreetmap.org/copyright'>© OpenStreetMap Contributors</a>"
                   },
-                  lines: {
-                    type: "vector",
-                    url: "pmtiles://../lines.pmtiles"
-                  },
                   points: {
                     type: "vector",
-                    url: "pmtiles://../points.pmtiles"
+                    url: "pmtiles://../points.pmtiles",
+                    attribution: "<a href='https://gis-hennepin.hub.arcgis.com/pages/open-data'>Hennepin County Open Data</a>"
                   },
                 },
                 layers: [
                     ...protomaps_themes_base.noLabels("basemap", "white"),
-                    // {
-                    //     id: "line",
-                    //     type: "line",
-                    //     source: "lines",
-                    //     "source-layer": "lines",
-                    //     paint: {
-                    //         "line-color": "steelblue",
-                    //         "line-opacity": 0.1
-                    //     }
-                    // },
                     {
                         id: "points",
                         type: "circle",
