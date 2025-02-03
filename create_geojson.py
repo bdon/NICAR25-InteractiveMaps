@@ -19,7 +19,7 @@ with open('data/MPLS_Centerline.geojson') as g:
     first = coordinates[0]
     last = coordinates[-1]
     objectid = int(props['GBSID'])
-    objectids[objectid] = {
+    centerlines_by_id[objectid] = {
       'streetname':props['STREETNAME'],
       'type':props['TYPE'],
       'sufdir':props['SUFDIR'],
@@ -47,15 +47,15 @@ with open('data/Motorized_Foot_Scooter_and_eBike_Trips_2023_-2732496373249609372
       endID = int(float(end))
 
       # if both exist in the previous dataset...
-      if startID in objectids and endID in objectids:
+      if startID in centerlines_by_id and endID in centerlines_by_id:
 
         # since we only have the street, place the point
         # at a random location along the street
-        start = objectids[startID]['coordinates']
+        start = centerlines_by_id[startID]['coordinates']
         t = random.random()
         startPoint = [start[0][0] + t * (start[1][0] - start[0][0]), start[0][1] + t * (start[1][1] - start[0][1])]
 
-        end = objectids[endID]['coordinates']
+        end = centerlines_by_id[endID]['coordinates']
         t = random.random()
         endPoint = [end[0][0] + t * (end[1][0] - end[0][0]), end[0][1] + t * (end[1][1] - end[0][1])]
 
