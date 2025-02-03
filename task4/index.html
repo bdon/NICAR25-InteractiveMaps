@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <title>Task 4</title>
+        <meta charset="utf-8"/>
+        <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.css" crossorigin="anonymous">
+        <script src="https://unpkg.com/maplibre-gl@4.7.0/dist/maplibre-gl.js" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/pmtiles@4.1.0/dist/pmtiles.js"></script>
+        <script src="https://unpkg.com/protomaps-themes-base@4.3.0/dist/protomaps-themes-base.js"></script>
+        <style>
+            body {
+                margin: 0;
+            }
+            #map {
+                height:100%; width:100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="map"></div>
+        <script type="text/javascript">
+            let protocol = new pmtiles.Protocol();
+            maplibregl.addProtocol("pmtiles", protocol.tile);
+
+            const map = new maplibregl.Map({
+              container: "map",
+              zoom: 2.5,
+              center: [-95.64, 44.3],
+              style: {
+                version: 8,
+                glyphs: "https://protomaps.github.io/basemaps-assets/fonts/{fontstack}/{range}.pbf",
+                sprite: `https://protomaps.github.io/basemaps-assets/sprites/v4/light`,
+                sources: {
+                  example_source: {
+                    type: "vector",
+                    url: "https://api.protomaps.com/tiles/v4.json?key=1003762824b9687f",
+                  },
+                  precincts: {
+                    type: "vector",
+                    url: "pmtiles://../tiles/precincts.pmtiles"
+                  }
+                },
+                layers: [
+                    ...protomaps_themes_base.noLabels("example_source", "white"),
+                    {
+                        id: "precincts",
+                        source: "precincts",
+                        "source-layer": "precinctswithresults",
+                        type: "fill",
+                        filter: ["has", "pct_dem_lead"],
+                        paint: {
+                            "fill-color":[
+                                "case",
+                                ["<=", ["get","pct_dem_lead"], -80],
+                                "#a50026",
+                                ["<=", ["get","pct_dem_lead"], -60],
+                                "#d73027",
+                                ["<=", ["get","pct_dem_lead"], -40],
+                                "#f46d43",
+                                ["<=", ["get","pct_dem_lead"], -20],
+                                "#fdae61",
+                                ["<=", ["get","pct_dem_lead"], 0],
+                                "#fee090",
+                                ["<=", ["get","pct_dem_lead"], 20],
+                                "#e0f3f8",
+                                ["<=", ["get","pct_dem_lead"], 40],
+                                "#abd9e9",
+                                ["<=", ["get","pct_dem_lead"], 60],
+                                "#74add1",
+                                ["<=", ["get","pct_dem_lead"], 80],
+                                "#4575b4",
+                                "#313695"
+                            ],
+                            "fill-opacity":0.4
+                        },
+                    }
+                ]
+              },
+            });
+        </script>
+    </body>
+</html>
