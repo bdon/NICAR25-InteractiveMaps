@@ -30,6 +30,17 @@ python3 -m RangeHTTPServer
 * [Task 2](task2)
 * [Task 3](task3)
 
+## Commands
+
+```sh
+python create_geojson.py
+
+./programs/tippecanoe points.geojson -o points.pmtiles --force --drop-fraction-as-needed
+./programs/tippecanoe lines.geojson -o lines.pmtiles --force --drop-fraction-as-needed
+
+./programs/tippecanoe precincts-with-results.geojson -o precincts.pmtiles
+```
+
 ## More Info
 
 * Last year's workshop: [eyeseast/self-hosted-maps-codespace](https://github.com/eyeseast/self-hosted-maps-codespace)
