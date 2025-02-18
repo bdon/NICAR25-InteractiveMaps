@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.css" crossorigin="anonymous">
         <script src="https://unpkg.com/maplibre-gl@5.0.1/dist/maplibre-gl.js" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/pmtiles@4.2.1/dist/pmtiles.js"></script>
-        <script src="https://unpkg.com/protomaps-themes-base@4.4.0/dist/protomaps-themes-base.js"></script>
+        <script src="https://unpkg.com/@protomaps/basemaps@5.0.0/dist/basemaps.js"></script>
         <style>
             body {
                 margin: 0;
@@ -69,7 +69,7 @@
                   },
                 },
                 layers: [
-                    ...protomaps_themes_base.noLabels("basemap", "white"),
+                    ...basemaps.layers("basemap", basemaps.namedFlavor("white")),
                     {
                         id: "points",
                         type: "circle",
@@ -81,7 +81,7 @@
                             "circle-radius": ["step",["zoom"],2,16,10]
                         }
                     },
-                    ...protomaps_themes_base.labels("basemap", "white", "en"),
+                    ...basemaps.layers("basemap", basemaps.namedFlavor("white"), {lang:"en", labelsOnly: true})
                 ]
               },
             });
