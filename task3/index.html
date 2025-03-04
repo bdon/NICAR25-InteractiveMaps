@@ -75,6 +75,7 @@
                         type: "circle",
                         source: "points",
                         "source-layer": "points",
+                        // filter: ["==",["get","point"],"end"],
                         paint: {
                             "circle-color": ["case",["==",["get","point"],"start"],"cyan","magenta"],
                             "circle-opacity": 0.1,
