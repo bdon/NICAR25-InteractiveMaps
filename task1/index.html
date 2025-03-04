@@ -35,8 +35,23 @@
                     url: "pmtiles://../tiles/basemap_minneapolis.pmtiles",
                     attribution: "<a href='https://protomaps.com'>Protomaps</a> <a href='https://openstreetmap.org/copyright'>© OpenStreetMap Contributors</a>"
                   },
+                  // other_source: {
+                  //   type: "geojson",
+                  //   data: "../data/minneapolis_skyway.geojson",
+                  //   // data: "../lines.geojson"
+                  // }
                 },
-                layers: basemaps.layers("basemap", basemaps.namedFlavor("white"), {lang:"en"})
+                layers: [
+                    ...basemaps.layers("basemap", basemaps.namedFlavor("white"), {lang:"en"}),
+                    // {
+                    //     id: "other_layer",
+                    //     source: "other_source",
+                    //     type: "line",
+                    //     paint: {
+                    //         "line-color": "steelblue"
+                    //     }
+                    // },
+                ]
               },
             });
         </script>
