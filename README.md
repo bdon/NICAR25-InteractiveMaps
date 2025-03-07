@@ -2,6 +2,7 @@
 
 * Link to this README: [bit.ly/nicar25-protomaps](https://bit.ly/nicar25-protomaps)
 * Opening the developer console on mac: `Command + Option + i`
+* SLIDES: [r2-public.protomaps.com/NICAR25.pdf](https://r2-public.protomaps.com/NICAR25.pdf)
 
 ## Tools
 
