@@ -1,3 +1,8 @@
+# NICAR25: Unlocking Interactive Maps for Newsrooms
+
+* Link to this README: [bit.ly/nicar25-protomaps](https://bit.ly/nicar25-protomaps)
+* Opening the developer console on mac: `Command + Option + i`
+
 ## Tools
 
 * [Protomaps Docs](https://docs.protomaps.com)
