@@ -3,6 +3,7 @@
 * Link to this README: [bit.ly/nicar25-protomaps](https://bit.ly/nicar25-protomaps)
 * Opening the developer console on mac: `Command + Option + i`
 * SLIDES: [r2-public.protomaps.com/NICAR25.pdf](https://r2-public.protomaps.com/NICAR25.pdf)
+* [Feedback form](https://docs.google.com/forms/d/e/1FAIpQLSfVyWnRlovof8-lXfXFXw4EbHzSrJjMuB2S1ZLA7J-JQaIEFQ/viewform?usp=dialog)
 
 ## Tools
 
@@ -48,6 +49,11 @@ pmtiles extract https://build.protomaps.com/20250306.pmtiles —-bbox=-83.1379,4
 
 tippecanoe points.geojson -o points.pmtiles --force --drop-fraction-as-needed
 tippecanoe lines.geojson -o lines.pmtiles --force --drop-fraction-as-needed
+
+# more options:
+# --maximum-tile-bytes=50000
+# --maximum-drop-fraction-as-needed
+# --maximum-zoom=7
 
 tippecanoe precincts-with-results.geojson -o precincts.pmtiles
 ```
