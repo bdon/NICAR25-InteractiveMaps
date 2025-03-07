@@ -45,10 +45,10 @@ pmtiles show tiles/basemap_minneapolis.pmtiles
 # detroit extract
 pmtiles extract https://build.protomaps.com/20250306.pmtiles —-bbox=-83.1379,42.2801,-82.9600,42.3751
 
-./programs/tippecanoe points.geojson -o points.pmtiles --force --drop-fraction-as-needed
-./programs/tippecanoe lines.geojson -o lines.pmtiles --force --drop-fraction-as-needed
+tippecanoe points.geojson -o points.pmtiles --force --drop-fraction-as-needed
+tippecanoe lines.geojson -o lines.pmtiles --force --drop-fraction-as-needed
 
-./programs/tippecanoe precincts-with-results.geojson -o precincts.pmtiles
+tippecanoe precincts-with-results.geojson -o precincts.pmtiles
 ```
 
 ## More Info
