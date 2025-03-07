@@ -40,6 +40,11 @@ python3 -m RangeHTTPServer
 ```sh
 python create_geojson.py
 
+pmtiles show tiles/basemap_minneapolis.pmtiles
+
+# detroit extract
+pmtiles extract https://build.protomaps.com/20250306.pmtiles —-bbox=-83.1379,42.2801,-82.9600,42.3751
+
 ./programs/tippecanoe points.geojson -o points.pmtiles --force --drop-fraction-as-needed
 ./programs/tippecanoe lines.geojson -o lines.pmtiles --force --drop-fraction-as-needed
 
